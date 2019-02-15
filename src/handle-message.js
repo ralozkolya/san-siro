@@ -52,6 +52,8 @@ function getRandomMessage(key) {
 
 module.exports = function({ user_id, first_name, text, entities }) {
 
+	const cached = cache[user_id] = cache[user_id] || { tries: 0, mateTries: 0 };
+
 	let command;
 	if (command = getCommand(text, entities)) {
 		switch (command) {
@@ -64,15 +66,14 @@ module.exports = function({ user_id, first_name, text, entities }) {
 	}
 
 	if (isCorrect(text)) {
+		const tries = cached.tries;
 		delete cache[user_id];
-		return messages.success;
+		return tries < messages.error.length ? messages.success : messages.san_siro;
 	}
 
 	if (isQuestion(text)) {
 		return messages.question;
 	}
-
-	const cached = cache[user_id] = cache[user_id] || { tries: 0, mateTries: 0 };
 
 	if (isMate(text)) {
 		return messages.mate[cached.mateTries++] || messages.mateDefault;
