@@ -1,18 +1,9 @@
-const url = 'https://google.com/'
+const fs = require('fs');
 
-const messages = {
-	start: 'მითხარი, ვინ ხარ შენ?',
-	help: '/help - დახმარება\n\n/start - დაწყება\n\n/reset - თავიდან დაწყება',
-	reset: ['ჰეჰ, თავიდან დაწყება გჭირდება?', 'კაი, დავიწყოთ', 'მითხარი, ვინ ხარ შენ?'],
-	san_siro: ['რას ვიფიქრებდი, საკუთარი სახელის კარნახი თუ დაგჭირდებოდა...', 'Well...', { type: 'markdown', text: `[მიჰყევი ბმულს!](${url})` }],
-	surprise: { type: 'surprise' },
-	success: ['Wow! შთამბეჭდავია', 'გცოდნია, ვინ ხარ!', { type: 'markdown', text: `[მიჰყევი ბმულს!](${url})` }],
-	error: ['მგონი ცდები', 'ჩემი წყაროები სხვაგვარად მეუბნებიან', 'არ მითხრა ახლა რომ არ იცი ვინ ხარ', 'რაღაც ადგილსაც ჰქვია იგივე სახელი?', 'კაი, დაფიქრდი ცოტა', 'წმინდა სირი?', 'სტადიონია მგონი...', 'მდაჰ'],
-	errorDefault: 'ოღჩ... /san_siro დაწერე',
-	mate: ['კაი გაჩერდი ახლა!'],
-	mateDefault: 'ჩამოთვალე სხვა ყველა თუ გინდა, მაინც ცდები',
-	question: 'კითხვებს აქ მე ვსვამ!',
-};
+const url = 'https://google.com/';
+
+let messages = fs.readFileSync('./messages.json').toString();
+messages = JSON.parse(messages.replace(/%_URL/g, url));
 
 const cache = {};
 
