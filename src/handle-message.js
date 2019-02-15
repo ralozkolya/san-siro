@@ -66,9 +66,9 @@ module.exports = function({ user_id, first_name, text, entities }) {
 	}
 
 	if (isCorrect(text)) {
-		const tries = cached.tries;
+		const gotHint = cached.tries - 1 < messages.error.length;
 		delete cache[user_id];
-		return tries < messages.error.length ? messages.success : messages.san_siro;
+		return gotHint ? messages.success : messages.san_siro;
 	}
 
 	if (isQuestion(text)) {
