@@ -25,7 +25,7 @@ module.exports = async function(messages, chat_id) {
 
 		let text, payload = { chat_id };
 		if (message.type === 'location') {
-			payload = { ...payload, latitude: 59.4389287, longitude: 24.7282381 };
+			payload = { ...payload, latitude: 59.438905, longitude: 24.728469 };
 			return axios.post(sendLocationHost, payload);
 		} 
 
